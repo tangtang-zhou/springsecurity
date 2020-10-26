@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/rbac
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**.xml
+  type-aliases-package: com.tang.entity
+  global-config:
+    db-config:
+      logic-delete-value: 1 # 逻辑已删除值(默认为 0)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 1)
+
+jwt:
+  rolePermissionTime: 86400000 #1天
+
+elastic-search-client-config:
+  hostname: "47.108.31.185"
+  port: 1100
+  scheme: "http"

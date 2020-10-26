@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.tang.mapper.PermissionMapper">
+
+    <select id="getUserPermission" parameterType="java.util.List" resultMap="permissionMap">
+        SELECT r.name role_name, per.f_menu_name, per.f_url, per.f_is_leaf,per.f_menu_pid,per.id per_id,per.f_status,per.f_level,per.f_sort
+        FROM public.role_permission rp
+                 left join public.role r on rp.role_id = r.id
+                 left join public.permission per on per.id = rp.permission_id
+        where r.name in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <resultMap id="permissionMap" type="HashMap">
+        <result column="role_name" property="roleName"/>
+        <result column="f_menu_name" property="menuName"/>
+        <result column="f_url" property="url"/>
+        <result column="f_is_leaf" property="leaf"/>
+        <result column="f_menu_pid" property="menuPid"/>
+        <result column="per_id" property="permissionId"/>
+        <result column="f_status" property="status"/>
+        <result column="f_level" property="level"/>
+        <result column="f_sort" property="sort"/>
+    </resultMap>
+    
+</mapper>
